@@ -1,0 +1,41 @@
+{
+  "name": "personal-website",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "dev:watch": "next-remote-watch ./posts",
+    "build": "next build",
+    "start": "next start"
+  },
+  "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^1.2.30",
+    "@fortawesome/free-brands-svg-icons": "^5.14.0",
+    "@fortawesome/free-solid-svg-icons": "^5.14.0",
+    "@fortawesome/react-fontawesome": "^0.1.11",
+    "@prisma/client": "^2.7.1",
+    "date-fns": "^2.16.1",
+    "framer-motion": "^2.7.5",
+    "gray-matter": "^4.0.2",
+    "next": "9.5.3",
+    "next-google-fonts": "^1.2.1",
+    "next-remote-watch": "^0.2.0",
+    "next-seo": "^4.10.0",
+    "nprogress": "^0.2.0",
+    "react": "16.13.1",
+    "react-dom": "16.13.1",
+    "reading-time": "^1.2.0"
+  },
+  "devDependencies": {
+    "@prisma/cli": "^2.7.1",
+    "eslint": "^7.10.0",
+    "eslint-config-prettier": "^6.12.0",
+    "eslint-config-standard": "^14.1.1",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-mdx": "^1.8.2",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-react": "^7.21.2",
+    "eslint-plugin-standard": "^4.0.1"
+  }
+}

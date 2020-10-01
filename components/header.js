@@ -31,14 +31,14 @@ function getStyles() {
 const animationVariants = {
   initial: {
     height: 'var(--baseHeaderHeight)',
-    boxShadow: 'none',
-    backgroundColor: 'rgba(255, 255, 255, 0)',
+    boxShadow: '0 0.1rem rgba(0, 0, 0, 0)',
+    backgroundColor: 'rgba(255, 255, 255, 0)'
   },
   resized: {
     height: '6.4rem',
     boxShadow: 'var(--borderBoxShadow)',
-    backgroundColor: 'rgba(255, 255, 255, 1)',
-  },
+    backgroundColor: 'rgba(255, 255, 255, 1)'
+  }
 }
 
 const Header = () => {

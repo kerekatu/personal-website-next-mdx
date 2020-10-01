@@ -36,7 +36,7 @@ const CustomLink = ({ as, href, children, ...props }) => {
 CustomLink.propTypes = {
   as: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
   href: PropTypes.oneOfType([PropTypes.string, PropTypes.func]).isRequired,
-  children: PropTypes.node,
+  children: PropTypes.node
 }
 
 export default CustomLink

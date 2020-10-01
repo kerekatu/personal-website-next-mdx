@@ -7,12 +7,17 @@ const Card = ({ title, description, coverImg, href }) => {
     <>
       <CustomLink href={href}>
         <div className="card">
-          <picture>
-            <source srcSet={coverImg?.avif} type="image/avif" />
-            <img src={coverImg?.jpg} alt="Thumbnail for Post" />
-          </picture>
+          {coverImg ? (
+            <picture>
+              <source srcSet={coverImg?.avif} type="image/avif" />
+              <img src={coverImg?.jpg} alt="Thumbnail for Post" />
+            </picture>
+          ) : (
+            <div className="img-placeholder"></div>
+          )}
+
           <div className="card-content">
-            <h3>{title}</h3>
+            <h4>{title}</h4>
           </div>
         </div>
       </CustomLink>
@@ -28,13 +33,20 @@ const Card = ({ title, description, coverImg, href }) => {
             padding: 1rem 0;
           }
 
+          .img-placeholder {
+            background-color: var(--color-blue);
+            width: 100%;
+            height: 18rem;
+            border-radius: var(--cardRadius);
+          }
+
           picture,
           source,
           img {
             width: 100%;
-            height: 100%;
+            height: 18rem;
             object-fit: cover;
-            border-radius: 1.6rem 1.6rem 0 0;
+            border-radius: var(--cardRadius);
           }
         `}
       </style>

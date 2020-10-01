@@ -96,6 +96,35 @@ const Layout = ({ children }) => {
             color: inherit;
             text-decoration: none;
           }
+
+          h1,
+          h2,
+          h3,
+          h4,
+          h5 {
+            font-weight: 700;
+            font-family: var(--secondaryFont);
+          }
+
+          h1 {
+            font-size: var(--headingSize-1);
+          }
+
+          h2 {
+            font-size: var(--headingSize-2);
+          }
+
+          h3 {
+            font-size: var(--headingSize-3);
+          }
+
+          h4 {
+            font-size: var(--headingSize-4);
+          }
+
+          h5 {
+            font-size: var(--headingSize-5);
+          }
         `}
       </style>
     </>
@@ -103,7 +132,7 @@ const Layout = ({ children }) => {
 }
 
 Layout.propTypes = {
-  children: PropTypes.node,
+  children: PropTypes.node
 }
 
 export default Layout

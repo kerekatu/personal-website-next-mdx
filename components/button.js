@@ -15,6 +15,7 @@ const Button = ({ type, label, variant, icon, customPadding, ...props }) => {
             background-color: transparent;
             cursor: pointer;
             font-size: var(--baseFontSize);
+            font-family: var(--baseFont);
             font-weight: 500;
             line-height: 1;
             padding: 1rem 3.4rem;
@@ -70,7 +71,7 @@ Button.propTypes = {
   label: PropTypes.string,
   variant: PropTypes.string,
   icon: PropTypes.node,
-  customPadding: PropTypes.string,
+  customPadding: PropTypes.string
 }
 
 export default Button

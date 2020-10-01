@@ -10,6 +10,7 @@ const Grid = ({
   return (
     <>
       <section className="grid">{children}</section>
+
       <style jsx>
         {`
           .grid {
@@ -17,6 +18,7 @@ const Grid = ({
             grid-template-columns: ${gridColumns};
             grid-template-rows: ${gridRows};
             gap: ${gridGap};
+            padding-top: 8rem;
           }
         `}
       </style>

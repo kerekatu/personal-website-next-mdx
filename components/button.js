@@ -5,7 +5,7 @@ const Button = ({ type, label, variant, icon, customPadding, ...props }) => {
   return (
     <>
       <button type={type ?? 'button'} className={variant} {...props}>
-        {label} {icon && <Icon icon={icon} className="icon" />}
+        {label} {icon && <Icon icon={icon} />}
       </button>
 
       <style jsx>
@@ -18,12 +18,16 @@ const Button = ({ type, label, variant, icon, customPadding, ...props }) => {
             font-family: var(--baseFont);
             font-weight: 500;
             line-height: 1;
-            padding: 1rem 3.4rem;
           }
 
           button:disabled {
             opacity: 0.6;
             cursor: default;
+          }
+
+          .primary,
+          .secondary {
+            padding: 1rem 3.4rem;
           }
 
           .primary {
@@ -44,7 +48,19 @@ const Button = ({ type, label, variant, icon, customPadding, ...props }) => {
             background-color: var(--color-blue);
           }
 
-          .icon {
+          .tertiary {
+            font-size: var(--headingSize-4);
+            color: var(--color-black-3);
+            border-radius: var(--buttonRadius);
+            padding: 0.6rem 1rem;
+          }
+
+          .tertiary:hover {
+            background-color: var(--color-white-2);
+          }
+
+          .tertiary.active {
+            background-color: var(--color-white-2);
           }
 
           .full {
@@ -70,7 +86,7 @@ Button.propTypes = {
   type: PropTypes.string,
   label: PropTypes.string,
   variant: PropTypes.string,
-  icon: PropTypes.node,
+  icon: PropTypes.any,
   customPadding: PropTypes.string
 }
 

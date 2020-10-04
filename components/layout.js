@@ -22,6 +22,7 @@ const Layout = ({ children }) => {
             --color-white: #fff;
             --color-white-2: #f5f5f5;
             --color-white-3: #efefef;
+            --color-white-4: #dfe1e5;
             --color-black: #000;
             --color-black-2: #363636;
             --color-black-3: #696969;
@@ -132,7 +133,7 @@ const Layout = ({ children }) => {
 }
 
 Layout.propTypes = {
-  children: PropTypes.node
+  children: PropTypes.node,
 }
 
 export default Layout

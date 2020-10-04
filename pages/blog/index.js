@@ -3,57 +3,98 @@ import { useEffect, useState } from 'react'
 import { getPosts } from '@/lib/mdxData'
 import {
   faGripLines,
-  faGripHorizontal
+  faGripHorizontal,
+  faTimes,
 } from '@fortawesome/free-solid-svg-icons'
+import { capitalizeString } from '@/lib/transformText'
 
 import Layout from '@/components/layout'
 import { BlogCard } from '@/components/card'
 import Button from '@/components/button'
 import { Section, SectionTitle } from '@/components/section'
+import Select from '@/components/select'
+
+const SORTING_OPTIONS = ['Latest', 'Oldest']
 
 const Blog = ({ postsData }) => {
   const [isFlowRow, setIsFlowRow] = useState(false)
   const [categories, setCategories] = useState([])
   const [activeCategory, setActiveCategory] = useState(null)
-  const [filteredPosts, setFilteredPosts] = useState([])
+  const [filteredPosts, setFilteredPosts] = useState(null)
+  const [sorting, setSorting] = useState('Latest')
 
   const filterCategories = () => {
-    const allCategories = postsData.map((post) => post.frontMatter.categories)
+    const allCategories = postsData.map((post) =>
+      post.frontMatter.categories.map((category) => capitalizeString(category))
+    )
     const concatedCategories = allCategories.concat.apply([], allCategories)
-    const filteredPosts = concatedCategories.filter(
+    const filteredCategories = concatedCategories.filter(
       (category, index) => concatedCategories.indexOf(category) === index
     )
 
-    if (filteredPosts) {
-      setCategories(() => filteredPosts)
+    if (filteredCategories) {
+      setCategories(() => filteredCategories)
     }
   }
 
   const filterPostsWithCategory = (category) => {
+    setActiveCategory(() => capitalizeString(category))
     setFilteredPosts(() =>
-      postsData.filter((post) => post.frontMatter.categories.includes(category))
+      postsData.filter((post) =>
+        post.frontMatter.categories
+          .map((category) => capitalizeString(category))
+          .includes(capitalizeString(category))
+      )
     )
   }
 
-  useEffect(() => {
-    const filter = filterCategories()
+  const sortPosts = (sorting) => {
+    setSorting(() => sorting)
 
-    return () => filter
+    // ! NEEDS ABSTRACTION
+
+    if (filteredPosts && sorting === SORTING_OPTIONS[0]) {
+      // Sort by Latest
+      const sortedPosts = filteredPosts.sort(
+        (a, b) =>
+          a.frontMatter.publishedAt.split('-').join('') -
+          b.frontMatter.publishedAt.split('-').join('')
+      )
+      setFilteredPosts(() => sortedPosts)
+    } else if (filteredPosts && sorting === SORTING_OPTIONS[1]) {
+      // Sort by Oldest
+      const sortedPosts = filteredPosts.sort(
+        (a, b) =>
+          b.frontMatter.publishedAt.split('-').join('') -
+          a.frontMatter.publishedAt.split('-').join('')
+      )
+      setFilteredPosts(() => sortedPosts)
+    } else if (!filteredPosts && sorting === SORTING_OPTIONS[0]) {
+      // Sort by Latest
+      return postsData.sort(
+        (a, b) =>
+          a.frontMatter.publishedAt.split('-').join('') -
+          b.frontMatter.publishedAt.split('-').join('')
+      )
+    } else if (!filteredPosts && sorting === SORTING_OPTIONS[1]) {
+      // Sort by Oldest
+      return postsData.sort(
+        (a, b) =>
+          b.frontMatter.publishedAt.split('-').join('') -
+          a.frontMatter.publishedAt.split('-').join('')
+      )
+    }
+  }
+
+  useEffect(() => {
+    filterCategories()
   }, [])
-
-  useEffect(() => {
-    const filter = filterPostsWithCategory(activeCategory)
-
-    return () => filter
-  }, [activeCategory])
-
-  console.log(filteredPosts)
 
   return (
     <>
       <Layout>
         <Section
-          gridColumns={isFlowRow ? '1fr' : 'repeat(3, 1fr)'}
+          gridColumns={isFlowRow ? '1fr' : 'repeat(3, minmax(0, 1fr))'}
           gridGap="4rem 6rem"
         >
           <SectionTitle title="Blog">
@@ -67,20 +108,41 @@ const Blog = ({ postsData }) => {
               onClick={() => setIsFlowRow(false)}
               icon={faGripHorizontal}
             />
+            <Select
+              options={SORTING_OPTIONS}
+              selectedOption={sorting}
+              handleSelect={sortPosts}
+            />
           </SectionTitle>
+
           <SectionTitle>
             {categories.map((category) => (
               <Button
-                variant="secondary"
+                variant={
+                  activeCategory === category
+                    ? 'quaternary active'
+                    : 'quaternary'
+                }
                 label={category}
                 key={category}
-                onClick={() => setActiveCategory(category)}
+                onClick={() => filterPostsWithCategory(category)}
               />
             ))}
+            {activeCategory && (
+              <Button
+                variant="quaternary active"
+                label="Reset"
+                icon={faTimes}
+                onClick={() => {
+                  setActiveCategory(null)
+                  setFilteredPosts(null)
+                }}
+              ></Button>
+            )}
           </SectionTitle>
 
-          {filteredPosts !== []
-            ? filteredPosts.map((post) => {
+          {!filteredPosts
+            ? postsData.map((post) => {
                 const { slug, frontMatter } = post
 
                 return (
@@ -95,7 +157,7 @@ const Blog = ({ postsData }) => {
                   />
                 )
               })
-            : postsData.map((post) => {
+            : filteredPosts.map((post) => {
                 const { slug, frontMatter } = post
 
                 return (
@@ -123,13 +185,14 @@ export async function getStaticProps() {
 
   return {
     props: {
-      postsData
-    }
+      postsData,
+    },
   }
 }
 
 Blog.propTypes = {
-  postsData: PropTypes.oneOfType([PropTypes.array, PropTypes.object]).isRequired
+  postsData: PropTypes.oneOfType([PropTypes.array, PropTypes.object])
+    .isRequired,
 }
 
 export default Blog

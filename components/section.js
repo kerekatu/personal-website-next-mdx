@@ -4,7 +4,7 @@ export const Section = ({
   gridDisplay = 'grid',
   gridColumns,
   gridGap,
-  children
+  children,
 }) => {
   return (
     <>
@@ -28,7 +28,7 @@ Section.propTypes = {
   gridDisplay: PropTypes.string,
   gridColumns: PropTypes.string.isRequired,
   gridGap: PropTypes.string.isRequired,
-  children: PropTypes.node
+  children: PropTypes.node,
 }
 
 export const SectionTitle = ({ title, children }) => {
@@ -50,6 +50,7 @@ export const SectionTitle = ({ title, children }) => {
 
           .section-row-right {
             display: flex;
+            align-items: center;
             gap: 1rem;
           }
         `}
@@ -60,5 +61,5 @@ export const SectionTitle = ({ title, children }) => {
 
 SectionTitle.propTypes = {
   title: PropTypes.string,
-  children: PropTypes.node
+  children: PropTypes.node,
 }

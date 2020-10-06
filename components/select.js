@@ -20,7 +20,7 @@ const Select = ({ options, selectedOption, handleSelect }) => {
       <div className="select-container" ref={ref}>
         <div className="select">
           <Button
-            variant="transparent border"
+            variant={`transparent border ${isOpen ? 'active' : ''}`}
             label={selectedOption}
             onClick={() => setIsOpen(!isOpen)}
             icon={isOpen ? faChevronUp : faChevronDown}
@@ -29,15 +29,13 @@ const Select = ({ options, selectedOption, handleSelect }) => {
 
         <div className="select-dropdown">
           <ul>
-            {options.map((option, index) => (
-              <>
-                {option === selectedOption ? null : (
-                  <li key={index} onClick={() => handleClickOption(option)}>
-                    {option}
-                  </li>
-                )}
-              </>
-            ))}
+            {options.map((option, index) => {
+              return option === selectedOption ? null : (
+                <li key={index} onClick={() => handleClickOption(option)}>
+                  {option}
+                </li>
+              )
+            })}
           </ul>
         </div>
       </div>
@@ -99,7 +97,7 @@ const Select = ({ options, selectedOption, handleSelect }) => {
 Select.propTypes = {
   options: PropTypes.array.isRequired,
   selectedOption: PropTypes.string.isRequired,
-  handleSelect: PropTypes.func.isRequired,
+  handleSelect: PropTypes.func.isRequired
 }
 
 export default Select

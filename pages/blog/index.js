@@ -4,15 +4,16 @@ import { getPosts } from '@/lib/mdxData'
 import {
   faGripLines,
   faGripHorizontal,
-  faTimes,
+  faTimes
 } from '@fortawesome/free-solid-svg-icons'
 import { capitalizeString } from '@/lib/transformText'
 
 import Layout from '@/components/layout'
 import { BlogCard } from '@/components/card'
 import Button from '@/components/button'
-import { Section, SectionTitle } from '@/components/section'
+import { Section, SectionRow } from '@/components/section'
 import Select from '@/components/select'
+import Newsletter from '@/components/newsletter'
 
 const SORTING_OPTIONS = ['Latest', 'Oldest']
 
@@ -20,7 +21,7 @@ const Blog = ({ postsData }) => {
   const [isFlowRow, setIsFlowRow] = useState(false)
   const [categories, setCategories] = useState([])
   const [activeCategory, setActiveCategory] = useState(null)
-  const [filteredPosts, setFilteredPosts] = useState(null)
+  const [filteredPosts, setFilteredPosts] = useState(postsData)
   const [sorting, setSorting] = useState('Latest')
 
   const filterCategories = () => {
@@ -33,61 +34,51 @@ const Blog = ({ postsData }) => {
     )
 
     if (filteredCategories) {
-      setCategories(() => filteredCategories)
+      setCategories(filteredCategories)
+    }
+  }
+
+  const sortPosts = (sortingType, data = filteredPosts) => {
+    const sortedPosts = data.sort((a, b) => {
+      // Latest
+      if (sortingType === SORTING_OPTIONS[0]) {
+        return (
+          b.frontMatter.publishedAt.split('-').join('') -
+          a.frontMatter.publishedAt.split('-').join('')
+        )
+
+        // Oldest
+      } else if (sortingType === SORTING_OPTIONS[1]) {
+        return (
+          a.frontMatter.publishedAt.split('-').join('') -
+          b.frontMatter.publishedAt.split('-').join('')
+        )
+      }
+    })
+
+    if (sortingType !== sorting) {
+      setSorting(sortingType)
+      setFilteredPosts(sortedPosts)
     }
   }
 
   const filterPostsWithCategory = (category) => {
-    setActiveCategory(() => capitalizeString(category))
-    setFilteredPosts(() =>
-      postsData.filter((post) =>
-        post.frontMatter.categories
-          .map((category) => capitalizeString(category))
-          .includes(capitalizeString(category))
-      )
-    )
-  }
-
-  const sortPosts = (sorting) => {
-    setSorting(() => sorting)
-
-    // ! NEEDS ABSTRACTION
-
-    if (filteredPosts && sorting === SORTING_OPTIONS[0]) {
-      // Sort by Latest
-      const sortedPosts = filteredPosts.sort(
-        (a, b) =>
-          a.frontMatter.publishedAt.split('-').join('') -
-          b.frontMatter.publishedAt.split('-').join('')
-      )
-      setFilteredPosts(() => sortedPosts)
-    } else if (filteredPosts && sorting === SORTING_OPTIONS[1]) {
-      // Sort by Oldest
-      const sortedPosts = filteredPosts.sort(
-        (a, b) =>
-          b.frontMatter.publishedAt.split('-').join('') -
-          a.frontMatter.publishedAt.split('-').join('')
-      )
-      setFilteredPosts(() => sortedPosts)
-    } else if (!filteredPosts && sorting === SORTING_OPTIONS[0]) {
-      // Sort by Latest
-      return postsData.sort(
-        (a, b) =>
-          a.frontMatter.publishedAt.split('-').join('') -
-          b.frontMatter.publishedAt.split('-').join('')
-      )
-    } else if (!filteredPosts && sorting === SORTING_OPTIONS[1]) {
-      // Sort by Oldest
-      return postsData.sort(
-        (a, b) =>
-          b.frontMatter.publishedAt.split('-').join('') -
-          a.frontMatter.publishedAt.split('-').join('')
+    if (activeCategory !== category) {
+      setActiveCategory(category)
+      sortPosts(sorting, postsData)
+      setFilteredPosts(() =>
+        postsData.filter((post) =>
+          post.frontMatter.categories
+            .map((category) => capitalizeString(category))
+            .includes(capitalizeString(category))
+        )
       )
     }
   }
 
   useEffect(() => {
     filterCategories()
+    sortPosts(sorting, filteredPosts)
   }, [])
 
   return (
@@ -97,7 +88,7 @@ const Blog = ({ postsData }) => {
           gridColumns={isFlowRow ? '1fr' : 'repeat(3, minmax(0, 1fr))'}
           gridGap="4rem 6rem"
         >
-          <SectionTitle title="Blog">
+          <SectionRow title="Blog">
             <Button
               variant={`tertiary ${isFlowRow && 'active'}`}
               onClick={() => setIsFlowRow(true)}
@@ -113,9 +104,9 @@ const Blog = ({ postsData }) => {
               selectedOption={sorting}
               handleSelect={sortPosts}
             />
-          </SectionTitle>
+          </SectionRow>
 
-          <SectionTitle>
+          <SectionRow>
             {categories.map((category) => (
               <Button
                 variant={
@@ -125,7 +116,9 @@ const Blog = ({ postsData }) => {
                 }
                 label={category}
                 key={category}
-                onClick={() => filterPostsWithCategory(category)}
+                onClick={() => {
+                  filterPostsWithCategory(category)
+                }}
               />
             ))}
             {activeCategory && (
@@ -135,44 +128,30 @@ const Blog = ({ postsData }) => {
                 icon={faTimes}
                 onClick={() => {
                   setActiveCategory(null)
-                  setFilteredPosts(null)
+                  setFilteredPosts(postsData)
                 }}
               ></Button>
             )}
-          </SectionTitle>
+          </SectionRow>
 
-          {!filteredPosts
-            ? postsData.map((post) => {
-                const { slug, frontMatter } = post
+          {filteredPosts &&
+            filteredPosts.map((post) => {
+              const { slug, frontMatter } = post
 
-                return (
-                  <BlogCard
-                    href={`/blog/${slug}`}
-                    title={frontMatter.title}
-                    excerpt={frontMatter.excerpt}
-                    publishedAt={frontMatter.publishedAt}
-                    categories={frontMatter.categories}
-                    coverImg={!isFlowRow && frontMatter.coverImg}
-                    key={slug}
-                  />
-                )
-              })
-            : filteredPosts.map((post) => {
-                const { slug, frontMatter } = post
-
-                return (
-                  <BlogCard
-                    href={`/blog/${slug}`}
-                    title={frontMatter.title}
-                    excerpt={frontMatter.excerpt}
-                    publishedAt={frontMatter.publishedAt}
-                    categories={frontMatter.categories}
-                    coverImg={!isFlowRow && frontMatter.coverImg}
-                    key={slug}
-                  />
-                )
-              })}
+              return (
+                <BlogCard
+                  href={`/blog/${slug}`}
+                  title={frontMatter.title}
+                  excerpt={frontMatter.excerpt}
+                  publishedAt={frontMatter.publishedAt}
+                  categories={frontMatter.categories}
+                  coverImg={!isFlowRow && frontMatter.coverImg}
+                  key={slug}
+                />
+              )
+            })}
         </Section>
+        <Newsletter />
       </Layout>
 
       <style jsx>{``}</style>
@@ -185,14 +164,13 @@ export async function getStaticProps() {
 
   return {
     props: {
-      postsData,
-    },
+      postsData
+    }
   }
 }
 
 Blog.propTypes = {
-  postsData: PropTypes.oneOfType([PropTypes.array, PropTypes.object])
-    .isRequired,
+  postsData: PropTypes.oneOfType([PropTypes.array, PropTypes.object]).isRequired
 }
 
 export default Blog

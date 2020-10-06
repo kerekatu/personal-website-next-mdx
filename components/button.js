@@ -1,7 +1,15 @@
 import PropTypes from 'prop-types'
 import { FontAwesomeIcon as Icon } from '@fortawesome/react-fontawesome'
 
-const Button = ({ type, label, variant, icon, customPadding, ...props }) => {
+const Button = ({
+  type,
+  label,
+  variant,
+  icon,
+  customPadding,
+  customWidth,
+  ...props
+}) => {
   return (
     <>
       <button type={type ?? 'button'} className={variant} {...props}>
@@ -12,7 +20,7 @@ const Button = ({ type, label, variant, icon, customPadding, ...props }) => {
         {`
           button {
             border: none;
-            background-color: transparent;
+            background-color: var(--color-white);
             cursor: pointer;
             font-size: var(--baseFontSize);
             font-family: var(--baseFont);
@@ -34,6 +42,11 @@ const Button = ({ type, label, variant, icon, customPadding, ...props }) => {
             background-color: var(--color-blue);
             border-radius: var(--buttonRadius);
             color: var(--color-white);
+            transition: background-color 0.2s ease-in-out;
+          }
+
+          .primary:hover {
+            background-color: var(--color-blue-2);
           }
 
           .secondary {
@@ -92,7 +105,7 @@ const Button = ({ type, label, variant, icon, customPadding, ...props }) => {
             text-transform: capitalize;
             border: none;
             height: 3.6rem;
-            padding: 0.6rem 1.5rem;
+            padding: 0.6rem 2rem;
             font-size: var(--headingSize-5);
             color: var(--color-black-3);
           }
@@ -100,6 +113,14 @@ const Button = ({ type, label, variant, icon, customPadding, ...props }) => {
           .border {
             border: 0.1rem solid var(--color-white-3);
             border-radius: var(--buttonRadius);
+          }
+
+          .border:hover {
+            border: 0.1rem solid var(--color-white-4);
+          }
+
+          .border.active {
+            border: 0.1rem solid var(--color-white-4);
           }
 
           .full {
@@ -119,6 +140,7 @@ const Button = ({ type, label, variant, icon, customPadding, ...props }) => {
             ${icon && 'gap: 0.8rem'};
             ${icon && 'align-items: center'};
             ${customPadding && `padding: ${customPadding} !important`};
+            ${customWidth && `width: ${customWidth} !important`};
           }
         `}
       </style>
@@ -132,6 +154,7 @@ Button.propTypes = {
   variant: PropTypes.string,
   icon: PropTypes.any,
   customPadding: PropTypes.string,
+  customWidth: PropTypes.string
 }
 
 export default Button

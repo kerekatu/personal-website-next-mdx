@@ -29,8 +29,10 @@ const Layout = ({ children }) => {
             --color-gray: #999;
             --color-gray-2: #888;
             --color-blue: #156dff;
+            --color-blue-2: #5192f3;
             --color-aqua: #51f3b9;
             --color-yellow: #f3d951;
+            --color-red: #ff3d71;
 
             /* BORDERS */
             --cardRadius: 1.6rem;
@@ -108,10 +110,12 @@ const Layout = ({ children }) => {
 
           h1 {
             font-size: var(--headingSize-1);
+            line-height: var(--lineHeight-heading);
           }
 
           h2 {
             font-size: var(--headingSize-2);
+            line-height: var(--lineHeight-heading);
           }
 
           h3 {
@@ -133,7 +137,7 @@ const Layout = ({ children }) => {
 }
 
 Layout.propTypes = {
-  children: PropTypes.node,
+  children: PropTypes.node
 }
 
 export default Layout

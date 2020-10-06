@@ -4,18 +4,76 @@ import { capitalizeString } from '@/lib/transformText'
 
 import PropTypes from 'prop-types'
 
+export const Card = ({ children, variant, customPadding }) => {
+  return (
+    <>
+      <div className={`card ${variant}`}>{children}</div>
+
+      <style jsx>
+        {`
+          .card {
+            width: 100%;
+            height: 100%;
+            display: block;
+            border-radius: var(--cardRadius);
+          }
+
+          .primary {
+            background-color: var(--color-blue);
+            color: var(--color-white);
+          }
+
+          .secondary {
+            background-color: var(--color-white-2);
+            color: var(--color-black);
+          }
+
+          .tertiary {
+            background-color: transparent;
+            border: var(--cardBorder);
+            box-shadow: var(--cardBoxShadow);
+            color: var(--color-black);
+          }
+
+          .gradient-white {
+            background-image: linear-gradient(
+              135deg,
+              var(--color-blue-2) 10%,
+              var(--color-blue) 100%
+            );
+          }
+        `}
+      </style>
+
+      <style jsx>
+        {`
+          .card {
+            ${customPadding ? `padding: ${customPadding}` : 'padding: 2rem'};
+          }
+        `}
+      </style>
+    </>
+  )
+}
+
+Card.propTypes = {
+  children: PropTypes.oneOfType([PropTypes.node, PropTypes.element]).isRequired,
+  variant: PropTypes.string,
+  customPadding: PropTypes.string
+}
+
 export const BlogCard = ({
   title,
   excerpt,
   publishedAt,
   categories,
   coverImg,
-  href,
+  href
 }) => {
   return (
     <>
       <CustomLink href={href}>
-        <div className="card">
+        <div className="blog-card">
           {coverImg && (
             <picture>
               <source srcSet={coverImg?.avif} type="image/avif" />
@@ -23,7 +81,7 @@ export const BlogCard = ({
             </picture>
           )}
 
-          <div className="card-content">
+          <div className="blog-card-content">
             <h4>{title}</h4>
             <h5>{excerpt}</h5>
             <span className="date">{formatDate(publishedAt)}</span>
@@ -45,7 +103,7 @@ export const BlogCard = ({
 
       <style jsx>
         {`
-          .card {
+          .blog-card {
             display: flex;
             flex-direction: column;
             border-radius: var(--cardRadius);
@@ -55,11 +113,11 @@ export const BlogCard = ({
             padding: 2.4rem 2rem;
           }
 
-          .card:hover {
+          .blog-card:hover {
             background-color: var(--color-white-2);
           }
 
-          .card-content {
+          .blog-card-content {
             padding: 0;
           }
 
@@ -73,7 +131,7 @@ export const BlogCard = ({
           h5 {
             color: var(--color-black-3);
             font-weight: 400;
-            height: 5.8rem;
+            max-height: 5.8rem;
             overflow: hidden;
             text-overflow: ellipsis;
             position: relative;
@@ -131,5 +189,5 @@ BlogCard.propTypes = {
   categories: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
   publishedAt: PropTypes.string,
   coverImg: PropTypes.object,
-  href: PropTypes.string.isRequired,
+  href: PropTypes.string.isRequired
 }

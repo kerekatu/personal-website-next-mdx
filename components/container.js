@@ -10,6 +10,7 @@ const Container = ({ children, main = true, fullWidth = false }) => {
           .container {
             height: inherit;
             padding: 0 2rem;
+            position: relative;
           }
         `}
       </style>
@@ -30,7 +31,7 @@ const Container = ({ children, main = true, fullWidth = false }) => {
 Container.propTypes = {
   children: PropTypes.node,
   main: PropTypes.bool,
-  fullWidth: PropTypes.bool,
+  fullWidth: PropTypes.bool
 }
 
 export default Container

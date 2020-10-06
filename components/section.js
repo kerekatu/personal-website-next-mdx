@@ -4,7 +4,8 @@ export const Section = ({
   gridDisplay = 'grid',
   gridColumns,
   gridGap,
-  children,
+  initialPadding = true,
+  children
 }) => {
   return (
     <>
@@ -14,9 +15,11 @@ export const Section = ({
         {`
           section {
             display: ${gridDisplay};
-            grid-template-columns: ${gridColumns};
-            gap: ${gridGap};
-            padding-top: 8rem;
+            ${gridDisplay === 'grid' &&
+            `grid-template-columns: ${gridColumns || 0}`};
+            gap: ${gridGap || 0};
+            padding: ${initialPadding ? '8rem 0' : '0'};
+            height: 100%;
           }
         `}
       </style>
@@ -27,16 +30,17 @@ export const Section = ({
 Section.propTypes = {
   gridDisplay: PropTypes.string,
   gridColumns: PropTypes.string.isRequired,
-  gridGap: PropTypes.string.isRequired,
-  children: PropTypes.node,
+  gridGap: PropTypes.string,
+  initialPadding: PropTypes.bool,
+  children: PropTypes.node
 }
 
-export const SectionTitle = ({ title, children }) => {
+export const SectionRow = ({ title, children }) => {
   return (
     <>
       <div className="section-row">
         {title && <h2>{title}</h2>}
-        <div className="section-row-right">{children}</div>
+        <div className="section-row-items">{children}</div>
       </div>
 
       <style jsx>
@@ -48,7 +52,7 @@ export const SectionTitle = ({ title, children }) => {
             justify-content: space-between;
           }
 
-          .section-row-right {
+          .section-row-items {
             display: flex;
             align-items: center;
             gap: 1rem;
@@ -59,7 +63,7 @@ export const SectionTitle = ({ title, children }) => {
   )
 }
 
-SectionTitle.propTypes = {
+SectionRow.propTypes = {
   title: PropTypes.string,
-  children: PropTypes.node,
+  children: PropTypes.node
 }

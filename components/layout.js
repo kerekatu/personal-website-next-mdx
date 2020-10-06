@@ -93,6 +93,7 @@ const Layout = ({ children }) => {
             font-weight: 400;
             line-height: var(--lineHeight-body);
             text-rendering: optimizeLegibility;
+            background-color: var(--color-background);
           }
 
           a {
@@ -137,7 +138,7 @@ const Layout = ({ children }) => {
 }
 
 Layout.propTypes = {
-  children: PropTypes.node
+  children: PropTypes.node,
 }
 
 export default Layout

@@ -25,7 +25,8 @@
     "path": "^0.12.7",
     "react": "16.13.1",
     "react-dom": "16.13.1",
-    "reading-time": "^1.2.0"
+    "reading-time": "^1.2.0",
+    "terser": "^5.3.4"
   },
   "devDependencies": {
     "@prisma/cli": "^2.7.1",

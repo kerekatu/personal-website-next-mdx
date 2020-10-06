@@ -1,7 +1,11 @@
 import CustomLink from '@/components/custom-link'
 import Button from '@/components/button'
+import { useContext } from 'react'
+import { ThemeContext } from 'context/themeContext'
 
 const Navbar = () => {
+  const { theme, handleTheme } = useContext(ThemeContext)
+
   return (
     <>
       <nav>
@@ -16,6 +20,13 @@ const Navbar = () => {
             <CustomLink href="/contact" title="Contact Me">
               <Button label="Hire me" variant="secondary full" />
             </CustomLink>
+          </li>
+          <li>
+            <Button
+              variant="primary"
+              label="Toggle Dark"
+              onClick={() => handleTheme(theme === 'dark' ? 'light' : 'dark')}
+            ></Button>
           </li>
         </ul>
       </nav>

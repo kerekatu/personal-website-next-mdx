@@ -1,9 +1,11 @@
 import CustomLink from '@/components/custom-link'
 import Button from '@/components/button'
+import PropTypes from 'prop-types'
 import { useContext } from 'react'
-import { ThemeContext } from 'context/themeContext'
+import { ThemeContext } from '@/context/themeContext'
+import { faSun, faMoon } from '@fortawesome/free-solid-svg-icons'
 
-const Navbar = () => {
+const Navbar = ({ animationCompleted }) => {
   const { theme, handleTheme } = useContext(ThemeContext)
 
   return (
@@ -23,9 +25,13 @@ const Navbar = () => {
           </li>
           <li>
             <Button
-              variant="primary"
-              label="Toggle Dark"
-              onClick={() => handleTheme(theme === 'dark' ? 'light' : 'dark')}
+              variant="transparent"
+              customPadding="0"
+              icon={theme === 'dark' ? faSun : faMoon}
+              onClick={() =>
+                animationCompleted &&
+                handleTheme(theme === 'dark' ? 'light' : 'dark')
+              }
             ></Button>
           </li>
         </ul>
@@ -49,10 +55,18 @@ const Navbar = () => {
             line-height: 1;
             font-weight: 500;
           }
+
+          li:hover:last-child {
+            color: var(--color-black);
+          }
         `}
       </style>
     </>
   )
+}
+
+Navbar.propTypes = {
+  animationCompleted: PropTypes.bool.isRequired,
 }
 
 export default Navbar

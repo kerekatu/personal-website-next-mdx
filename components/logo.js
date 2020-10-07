@@ -1,28 +1,20 @@
-import { useState } from 'react'
 import PropTypes from 'prop-types'
 
-const Logo = ({ altColor = false }) => {
-  const [isHovered, setIsHovered] = useState(false)
-
+const Logo = () => {
   return (
     <>
-      <img
-        src={
-          isHovered
-            ? '/static/logo-blue.svg'
-            : altColor
-            ? '/static/logo-white.svg'
-            : '/static/logo-black.svg'
-        }
-        onMouseEnter={() => setIsHovered(true)}
-        onMouseLeave={() => setIsHovered(false)}
-        alt="Logo"
-      />
+      <img src="/static/logo-black.svg" alt="Logo" />
+
       <style jsx>
         {`
           img {
             display: block;
             height: 3.6rem;
+            filter: var(--color-svg);
+          }
+
+          img:hover {
+            filter: var(--color-logo);
           }
         `}
       </style>

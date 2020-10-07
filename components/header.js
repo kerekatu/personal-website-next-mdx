@@ -1,6 +1,7 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useContext } from 'react'
 import css from 'styled-jsx/css'
 import { motion } from 'framer-motion'
+import { ThemeContext } from '@/context/themeContext'
 
 import Navbar from '@/components/navbar'
 import Container from '@/components/container'
@@ -31,48 +32,63 @@ function getStyles() {
 const animationVariants = {
   initial: {
     height: 'var(--baseHeaderHeight)',
-    boxShadow: '0 0.1rem rgba(0, 0, 0, 0)',
-    backgroundColor: 'rgba(255, 255, 255, 0)'
+    boxShadow: 'var(--color-headerBorder)',
+    backgroundColor: 'var(--color-header)',
   },
   resized: {
-    height: '6.4rem',
-    boxShadow: 'var(--borderBoxShadow)',
-    backgroundColor: 'rgba(255, 255, 255, 1)'
-  }
+    height: 'var(--resizedHeaderHeight)',
+    boxShadow: 'var(--color-headerBorder-2)',
+    backgroundColor: 'var(--color-header-2)',
+  },
 }
 
 const Header = () => {
-  const [headerResize, setHeaderResize] = useState(false)
+  const [isHeaderResized, setIsHeaderResized] = useState(false)
+  const [isAnimationCompleted, setIsAnimationCompleted] = useState(true)
   const { className, styles } = getStyles()
+  const { theme } = useContext(ThemeContext)
 
   const resizeHeaderOnScroll = () => {
     const distanceY = window.pageYOffset || document.documentElement.scrollTop
 
     if (distanceY > 20) {
-      setHeaderResize(true)
+      setIsHeaderResized(true)
     } else {
-      setHeaderResize(false)
+      setIsHeaderResized(false)
     }
   }
 
   useEffect(() => {
-    window.addEventListener('scroll', resizeHeaderOnScroll)
-  }, [])
+    if (isHeaderResized && isAnimationCompleted) {
+      document.getElementsByTagName('header')[0].style.backgroundColor =
+        'var(--color-header-2)'
+      document.getElementsByTagName('header')[0].style.boxShadow =
+        'var(--color-headerBorder-2)'
+    }
+  }, [theme])
+
+  useEffect(() => {
+    const listener = window.addEventListener('scroll', resizeHeaderOnScroll)
+
+    return () => listener
+  })
 
   return (
     <>
       <motion.header
         initial={false}
-        animate={headerResize ? 'resized' : 'initial'}
+        animate={isHeaderResized ? 'resized' : 'initial'}
         variants={animationVariants}
         className={className}
+        onAnimationStart={() => setIsAnimationCompleted(false)}
+        onAnimationComplete={() => setIsAnimationCompleted(true)}
       >
         <Container main={false}>
           <div className={`${className} content`}>
             <CustomLink href="/">
               <Logo />
             </CustomLink>
-            <Navbar />
+            <Navbar animationCompleted={isAnimationCompleted} />
           </div>
         </Container>
       </motion.header>

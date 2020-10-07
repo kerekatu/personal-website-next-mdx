@@ -51,16 +51,17 @@ const Select = ({ options, selectedOption, handleSelect }) => {
             align-items: center;
             gap: 1rem;
             font-size: var(--headingSize-4);
+            color: var(--color-black-3);
           }
 
           .select-dropdown {
             position: absolute;
-            top: 4rem;
+            top: 4.6rem;
             right: 0;
             white-space: nowrap;
             min-width: 100%;
             border-radius: var(--buttonRadius);
-            background-color: var(--color-white-2);
+            background-color: var(--color-white-3);
           }
 
           ul {
@@ -78,7 +79,7 @@ const Select = ({ options, selectedOption, handleSelect }) => {
           }
 
           li:hover {
-            background-color: var(--color-white-3);
+            background-color: var(--color-white-4);
           }
         `}
       </style>
@@ -97,7 +98,7 @@ const Select = ({ options, selectedOption, handleSelect }) => {
 Select.propTypes = {
   options: PropTypes.array.isRequired,
   selectedOption: PropTypes.string.isRequired,
-  handleSelect: PropTypes.func.isRequired
+  handleSelect: PropTypes.func.isRequired,
 }
 
 export default Select

@@ -96,6 +96,13 @@ const Footer = () => {
             background-color: var(--color-white-2);
           }
 
+          .icon-github,
+          .icon-twitter,
+          .icon-linkedin,
+          .icon-email {
+            filter: var(--color-svg);
+          }
+
           .footer-social > a:hover .icon-github {
             filter: invert(27%) sepia(93%) saturate(1609%) hue-rotate(197deg)
               brightness(93%) contrast(106%);
@@ -127,7 +134,7 @@ const Footer = () => {
 }
 
 Footer.propTypes = {
-  includeNewsletter: PropTypes.bool
+  includeNewsletter: PropTypes.bool,
 }
 
 export default Footer

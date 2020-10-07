@@ -13,12 +13,39 @@ const Layout = ({ children }) => {
       <style jsx global>
         {`
           ::selection {
-            background-color: var(--color-blue);
+            background-color: var(--color-primary);
             color: var(--color-white);
           }
 
-          :root {
-            /* COLORS */
+          :root[id='dark'] {
+            /* DARK MODE */
+            --color-white: #fff;
+            --color-white-2: #232323;
+            --color-white-3: #232323;
+            --color-white-4: #313131;
+            --color-black: #fff;
+            --color-black-2: #f5f5f5;
+            --color-black-3: #efefef;
+            --color-gray: #525252;
+            --color-gray-2: #525252;
+
+            --color-header: rgba(35, 35, 35, 0);
+            --color-header-2: rgba(35, 35, 35, 1);
+            --color-headerBorder: 0 0.1rem rgba(55, 55, 55, 0);
+            --color-headerBorder-2: 0 0.1rem rgba(55, 55, 55, 1);
+            --color-background: #111;
+            --color-text: #fff;
+            --color-primary: #156dff;
+            --color-secondary: #5192f3;
+
+            --color-svg: invert(100%) sepia(100%) saturate(0%)
+              hue-rotate(212deg) brightness(102%) contrast(102%);
+            --color-logo: invert(30%) sepia(52%) saturate(3432%)
+              hue-rotate(210deg) brightness(100%) contrast(103%);
+          }
+
+          :root[id='light'] {
+            /* LIGHT MODE */
             --color-white: #fff;
             --color-white-2: #f5f5f5;
             --color-white-3: #efefef;
@@ -28,11 +55,27 @@ const Layout = ({ children }) => {
             --color-black-3: #696969;
             --color-gray: #999;
             --color-gray-2: #888;
+
+            --color-header: rgba(255, 255, 255, 0);
+            --color-header-2: rgba(255, 255, 255, 1);
+            --color-headerBorder: 0 0.1rem rgba(0, 0, 0, 0);
+            --color-headerBorder-2: 0 0.1rem rgba(0, 0, 0, 0.04);
+            --color-background: #fff;
+            --color-text: #000;
+            --color-primary: #156dff;
+            --color-secondary: #5192f3;
+
+            --color-logo: invert(37%) sepia(73%) saturate(4914%)
+              hue-rotate(211deg) brightness(100%) contrast(103%);
+          }
+
+          :root {
+            /* COLORS */
             --color-blue: #156dff;
             --color-blue-2: #5192f3;
             --color-aqua: #51f3b9;
             --color-yellow: #f3d951;
-            --color-red: #ff3d71;
+            --color-red: #ff005c;
 
             /* BORDERS */
             --cardRadius: 1.6rem;
@@ -66,6 +109,7 @@ const Layout = ({ children }) => {
 
             /* SIZES */
             --baseHeaderHeight: 8rem;
+            --resizedHeaderHeight: 6.4rem;
             --baseMainWidth: 100rem;
           }
 
@@ -80,6 +124,7 @@ const Layout = ({ children }) => {
           html {
             font-size: 62.5%;
             box-sizing: border-box;
+            background-color: var(--color-background) !important;
           }
 
           html,
@@ -93,7 +138,7 @@ const Layout = ({ children }) => {
             font-weight: 400;
             line-height: var(--lineHeight-body);
             text-rendering: optimizeLegibility;
-            background-color: var(--color-background);
+            color: var(--color-text);
           }
 
           a {
@@ -107,6 +152,7 @@ const Layout = ({ children }) => {
           h4 {
             font-weight: 700;
             font-family: var(--secondaryFont);
+            color: currentColor;
           }
 
           h1 {

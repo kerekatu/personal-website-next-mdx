@@ -1,24 +1,23 @@
 import Document, { Html, Head, Main, NextScript } from 'next/document'
-import Terser from 'terser'
-import { COLORS } from '@/lib/themeStyles'
 
 function setColorsByTheme() {
+  const matchMediaQuery = window.matchMedia('(prefers-color-scheme: dark)')
+  const prefersDarkFromMediaQuery = matchMediaQuery.matches
   const storedThemePreference = localStorage.getItem('theme')
-  let theme = 'light'
-
-  if (storedThemePreference) {
-    theme = storedThemePreference
-  }
 
   const root = document.documentElement
 
-  root.style.setProperty('--theme', theme)
+  let theme = 'light'
 
-  Object.entries(COLORS).forEach(([name, colorByTheme]) => {
-    const cssVarName = `--color-${name}`
+  const hasStoredThemePreference = typeof storedThemePreference === 'string'
 
-    root.style.setProperty(cssVarName, colorByTheme[theme])
-  })
+  if (storedThemePreference && hasStoredThemePreference) {
+    theme = storedThemePreference
+  } else {
+    theme = prefersDarkFromMediaQuery ? 'dark' : 'light'
+  }
+
+  root.id = theme
 }
 
 const ThemeScriptTag = () => {

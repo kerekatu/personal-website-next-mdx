@@ -63,7 +63,7 @@ const Newsletter = () => {
           }
 
           strong {
-            color: var(--color-blue);
+            color: var(--color-primary);
           }
 
           .full {

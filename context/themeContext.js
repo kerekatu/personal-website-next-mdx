@@ -1,33 +1,29 @@
-import { createContext, useState, useEffect, useMemo } from 'react'
+import { createContext, useState, useMemo, useEffect } from 'react'
 import PropTypes from 'prop-types'
-import { COLORS } from '@/lib/themeStyles'
 
 export const ThemeContext = createContext()
 
 export const ThemeProvider = ({ children }) => {
-  const [theme, setTheme] = useState('dark')
+  const [theme, setTheme] = useState(null)
 
   useEffect(() => {
     const root = window.document.documentElement
 
-    const initialColorValue = root.style.getPropertyValue('--theme')
+    // Sets state for intial theme on load
+    const initialColorValue = root.getAttribute('id')
 
     setTheme(initialColorValue)
   }, [])
 
   const contextValue = useMemo(() => {
-    function handleTheme(newValue) {
+    function handleTheme(newThemeValue) {
+      // Toggles theme based on passed value
+      localStorage.setItem('theme', newThemeValue)
+
+      setTheme(newThemeValue)
+
       const root = window.document.documentElement
-
-      localStorage.setItem('theme', newValue)
-
-      Object.entries(COLORS).forEach(([name, colorByTheme]) => {
-        const cssVarName = `--color-${name}`
-
-        root.style.setProperty(cssVarName, colorByTheme[newValue])
-      })
-
-      setTheme(newValue)
+      root.id = newThemeValue
     }
 
     return {

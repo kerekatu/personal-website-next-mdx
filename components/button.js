@@ -13,14 +13,14 @@ const Button = ({
   return (
     <>
       <button type={type ?? 'button'} className={variant} {...props}>
-        {label} {icon && <Icon icon={icon} className="icon" />}
+        {label} {icon && <Icon icon={icon} width="0" className="icon" />}
       </button>
 
       <style jsx>
         {`
           button {
             border: none;
-            background-color: var(--color-white);
+            background-color: transparent;
             cursor: pointer;
             font-size: var(--baseFontSize);
             font-family: var(--baseFont);
@@ -39,32 +39,33 @@ const Button = ({
           }
 
           .primary {
-            background-color: var(--color-blue);
+            background-color: var(--color-primary);
             border-radius: var(--buttonRadius);
             color: var(--color-white);
             transition: background-color 0.2s ease-in-out;
           }
 
           .primary:hover {
-            background-color: var(--color-blue-2);
+            background-color: var(--color-secondary);
           }
 
           .secondary {
-            border: 0.2rem solid var(--color-blue);
+            border: 0.2rem solid var(--color-primary);
             border-radius: var(--buttonRadius);
-            color: var(--color-blue);
+            font-weight: 700;
+            color: var(--color-primary);
           }
 
           .secondary:hover {
             border: 0.2rem solid transparent;
             color: var(--color-white);
-            background-color: var(--color-blue);
+            background-color: var(--color-primary);
           }
 
           .secondary.active {
             border: 0.2rem solid transparent;
             color: var(--color-white);
-            background-color: var(--color-blue);
+            background-color: var(--color-primary);
           }
 
           .tertiary {
@@ -83,20 +84,20 @@ const Button = ({
           }
 
           .quaternary {
-            color: var(--color-blue);
+            color: var(--color-primary);
             border-radius: var(--buttonRadius-max);
-            border: 0.1rem solid var(--color-white-4);
+            border: 0.1rem solid var(--color-white-3);
             padding: 0.6rem 1.5rem;
             font-size: var(--headingSize-5);
           }
 
           .quaternary:hover {
-            border: 0.1rem solid var(--color-blue);
+            border: 0.1rem solid var(--color-primary);
           }
 
           .quaternary.active {
-            background-color: var(--color-blue);
-            border: 0.1rem solid var(--color-blue);
+            background-color: var(--color-primary);
+            border: 0.1rem solid var(--color-primary);
             color: var(--color-white);
           }
 
@@ -107,7 +108,7 @@ const Button = ({
             height: 3.6rem;
             padding: 0.6rem 2rem;
             font-size: var(--headingSize-5);
-            color: var(--color-black-3);
+            color: currentColor;
           }
 
           .border {
@@ -154,7 +155,7 @@ Button.propTypes = {
   variant: PropTypes.string,
   icon: PropTypes.any,
   customPadding: PropTypes.string,
-  customWidth: PropTypes.string
+  customWidth: PropTypes.string,
 }
 
 export default Button

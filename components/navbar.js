@@ -3,10 +3,11 @@ import Button from '@/components/button'
 import PropTypes from 'prop-types'
 import { useContext } from 'react'
 import { ThemeContext } from '@/context/themeContext'
-import { faSun, faMoon } from '@fortawesome/free-solid-svg-icons'
+import { faSun, faMoon, faCloudMoon } from '@fortawesome/free-solid-svg-icons'
 
 const Navbar = ({ animationCompleted }) => {
-  const { theme, handleTheme } = useContext(ThemeContext)
+  const { theme, handleTheme, themes } = useContext(ThemeContext)
+  const currentIndex = themes.indexOf(theme)
 
   return (
     <>
@@ -27,10 +28,20 @@ const Navbar = ({ animationCompleted }) => {
             <Button
               variant="transparent"
               customPadding="0"
-              icon={theme === 'dark' ? faSun : faMoon}
+              icon={
+                currentIndex === 0
+                  ? faMoon
+                  : currentIndex === 1
+                  ? faCloudMoon
+                  : faSun
+              }
               onClick={() =>
                 animationCompleted &&
-                handleTheme(theme === 'dark' ? 'light' : 'dark')
+                handleTheme(
+                  themes.length - 1 > currentIndex
+                    ? themes[currentIndex + 1]
+                    : themes[0]
+                )
               }
             ></Button>
           </li>
@@ -66,7 +77,7 @@ const Navbar = ({ animationCompleted }) => {
 }
 
 Navbar.propTypes = {
-  animationCompleted: PropTypes.bool.isRequired,
+  animationCompleted: PropTypes.bool.isRequired
 }
 
 export default Navbar

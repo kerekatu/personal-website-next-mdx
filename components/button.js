@@ -86,18 +86,18 @@ const Button = ({
           .quaternary {
             color: var(--color-primary);
             border-radius: var(--buttonRadius-max);
-            border: 0.1rem solid var(--color-white-3);
+            border: 0.2rem solid var(--color-white-3);
             padding: 0.6rem 1.5rem;
             font-size: var(--headingSize-5);
           }
 
           .quaternary:hover {
-            border: 0.1rem solid var(--color-primary);
+            border: 0.2rem solid var(--color-primary);
           }
 
           .quaternary.active {
             background-color: var(--color-primary);
-            border: 0.1rem solid var(--color-primary);
+            border: 0.2rem solid var(--color-primary);
             color: var(--color-white);
           }
 
@@ -112,16 +112,16 @@ const Button = ({
           }
 
           .border {
-            border: 0.1rem solid var(--color-white-3);
+            border: 0.2rem solid var(--color-white-3);
             border-radius: var(--buttonRadius);
           }
 
           .border:hover {
-            border: 0.1rem solid var(--color-white-4);
+            border: 0.2rem solid var(--color-white-4);
           }
 
           .border.active {
-            border: 0.1rem solid var(--color-white-4);
+            border: 0.2rem solid var(--color-white-4);
           }
 
           .full {
@@ -155,7 +155,7 @@ Button.propTypes = {
   variant: PropTypes.string,
   icon: PropTypes.any,
   customPadding: PropTypes.string,
-  customWidth: PropTypes.string,
+  customWidth: PropTypes.string
 }
 
 export default Button

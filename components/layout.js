@@ -17,31 +17,58 @@ const Layout = ({ children }) => {
             color: var(--color-white);
           }
 
-          :root[id='dark'] {
+          :root[id='darker'] {
             /* DARK MODE */
-            --color-white: #fff;
-            --color-white-2: #232323;
-            --color-white-3: #232323;
-            --color-white-4: #313131;
+            --color-white: #0f1214;
+            --color-white-2: #202528;
+            --color-white-3: #33393d;
+            --color-white-4: #474d51;
             --color-black: #fff;
             --color-black-2: #f5f5f5;
             --color-black-3: #efefef;
-            --color-gray: #525252;
-            --color-gray-2: #525252;
+            --color-gray: #474d51;
+            --color-gray-2: #474d51;
 
-            --color-header: rgba(35, 35, 35, 0);
-            --color-header-2: rgba(35, 35, 35, 1);
-            --color-headerBorder: 0 0.1rem rgba(55, 55, 55, 0);
-            --color-headerBorder-2: 0 0.1rem rgba(55, 55, 55, 1);
-            --color-background: #111;
+            --color-header: rgba(15, 18, 20, 0);
+            --color-header-2: rgba(15, 18, 20, 1);
+            --color-headerBorder: 0 0.1rem rgba(33, 33, 33, 0);
+            --color-headerBorder-2: 0 0.1rem rgba(33, 33, 33, 1);
+            --color-background: #0f1214;
             --color-text: #fff;
-            --color-primary: #156dff;
-            --color-secondary: #5192f3;
+            --color-primary: #46e87c;
+            --color-secondary: #6eed98;
 
             --color-svg: invert(100%) sepia(100%) saturate(0%)
               hue-rotate(212deg) brightness(102%) contrast(102%);
-            --color-logo: invert(30%) sepia(52%) saturate(3432%)
-              hue-rotate(210deg) brightness(100%) contrast(103%);
+            --color-svg-2: invert(82%) sepia(26%) saturate(1118%)
+              hue-rotate(76deg) brightness(96%) contrast(89%);
+          }
+
+          :root[id='dark'] {
+            /* DARK MODE */
+            --color-white: #fff;
+            --color-white-2: #2e2e2e;
+            --color-white-3: #454545;
+            --color-white-4: #5c5c5c;
+            --color-black: #fff;
+            --color-black-2: #f5f5f5;
+            --color-black-3: #efefef;
+            --color-gray: #5c5c5c;
+            --color-gray-2: #5c5c5c;
+
+            --color-header: rgba(23, 23, 23, 0);
+            --color-header-2: rgba(23, 23, 23, 1);
+            --color-headerBorder: 0 0.1rem rgba(40, 40, 40, 0);
+            --color-headerBorder-2: 0 0.1rem rgba(40, 40, 40, 1);
+            --color-background: #171717;
+            --color-text: #fff;
+            --color-primary: #e74699;
+            --color-secondary: #ec6faf;
+
+            --color-svg: invert(100%) sepia(100%) saturate(0%)
+              hue-rotate(212deg) brightness(102%) contrast(102%);
+            --color-svg-2: invert(42%) sepia(73%) saturate(3205%)
+              hue-rotate(304deg) brightness(96%) contrast(88%);
           }
 
           :root[id='light'] {
@@ -65,7 +92,9 @@ const Layout = ({ children }) => {
             --color-primary: #156dff;
             --color-secondary: #5192f3;
 
-            --color-logo: invert(37%) sepia(73%) saturate(4914%)
+            --color-svg: invert(0%) sepia(95%) saturate(5%) hue-rotate(351deg)
+              brightness(97%) contrast(100%);
+            --color-svg-2: invert(37%) sepia(73%) saturate(4914%)
               hue-rotate(211deg) brightness(100%) contrast(103%);
           }
 
@@ -75,7 +104,7 @@ const Layout = ({ children }) => {
             --color-blue-2: #5192f3;
             --color-aqua: #51f3b9;
             --color-yellow: #f3d951;
-            --color-red: #ff005c;
+            --color-red: #e74699;
 
             /* BORDERS */
             --cardRadius: 1.6rem;
@@ -184,7 +213,7 @@ const Layout = ({ children }) => {
 }
 
 Layout.propTypes = {
-  children: PropTypes.node,
+  children: PropTypes.node
 }
 
 export default Layout

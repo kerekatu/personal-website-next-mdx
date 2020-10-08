@@ -5,6 +5,7 @@ export const ThemeContext = createContext()
 
 export const ThemeProvider = ({ children }) => {
   const [theme, setTheme] = useState(null)
+  const themes = ['light', 'dark', 'darker']
 
   useEffect(() => {
     const root = window.document.documentElement
@@ -29,6 +30,7 @@ export const ThemeProvider = ({ children }) => {
     return {
       theme,
       handleTheme,
+      themes
     }
   }, [theme, setTheme])
 
@@ -40,5 +42,5 @@ export const ThemeProvider = ({ children }) => {
 }
 
 ThemeProvider.propTypes = {
-  children: PropTypes.any,
+  children: PropTypes.any
 }

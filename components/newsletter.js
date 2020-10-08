@@ -87,6 +87,7 @@ const Newsletter = () => {
             right: 50%;
             pointer-events: none;
             user-select: none;
+            filter: var(--color-svg-2);
           }
         `}
       </style>

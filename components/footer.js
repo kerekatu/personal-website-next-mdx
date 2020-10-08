@@ -134,7 +134,7 @@ const Footer = () => {
 }
 
 Footer.propTypes = {
-  includeNewsletter: PropTypes.bool,
+  includeNewsletter: PropTypes.bool
 }
 
 export default Footer

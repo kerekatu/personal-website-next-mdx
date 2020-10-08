@@ -96,13 +96,13 @@ export const FormInput = ({ label, name, type, ...props }) => {
           textarea {
             border-radius: var(--buttonRadius);
             font-size: var(--baseFontSize);
-            border: 0.1rem solid transparent;
+            border: 0.2rem solid transparent;
             height: 4.6rem;
             padding: 0 2rem;
           }
 
           input:focus {
-            border: 0.1rem solid var(--color-blue);
+            border: 0.2rem solid var(--color-blue);
           }
 
           input:invalid:required {
@@ -111,7 +111,7 @@ export const FormInput = ({ label, name, type, ...props }) => {
           }
 
           input:focus:invalid:required {
-            border: 0.1rem solid var(--color-red);
+            border: 0.2rem solid var(--color-red);
             outline: none;
             box-shadow: none;
           }

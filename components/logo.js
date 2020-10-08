@@ -14,7 +14,7 @@ const Logo = () => {
           }
 
           img:hover {
-            filter: var(--color-logo);
+            filter: var(--color-svg-2);
           }
         `}
       </style>
@@ -23,7 +23,7 @@ const Logo = () => {
 }
 
 Logo.propTypes = {
-  altColor: PropTypes.bool,
+  altColor: PropTypes.bool
 }
 
 export default Logo

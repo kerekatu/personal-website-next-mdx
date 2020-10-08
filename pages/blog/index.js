@@ -90,12 +90,12 @@ const Blog = ({ postsData }) => {
         >
           <SectionRow title="Blog">
             <Button
-              variant={`tertiary ${isFlowRow && 'active'}`}
+              variant={`tertiary ${isFlowRow ? 'active' : ''}`}
               onClick={() => setIsFlowRow(true)}
               icon={faGripLines}
             />
             <Button
-              variant={`tertiary ${!isFlowRow && 'active'}`}
+              variant={`tertiary ${!isFlowRow ? 'active' : ''}`}
               onClick={() => setIsFlowRow(false)}
               icon={faGripHorizontal}
             />

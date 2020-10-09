@@ -1,16 +1,24 @@
 import PropTypes from 'prop-types'
+import { prismStyle } from '@/styles/prismStyles'
+import hydrate from 'next-mdx-remote/hydrate'
+import renderToString from 'next-mdx-remote/render-to-string'
+
+// TODO: Find a way to include only needed languages to decrease the bundle size (maybe refractor?)
+import rehypePrism from '@mapbox/rehype-prism'
+
+import autolink from 'rehype-autolink-headings'
+import slug from 'rehype-slug'
+
+// TODO: Develop a better solution for TOC
+// import toc from 'rehype-toc'
+
 import Meta from '@/components/meta'
-import { getPost } from '@/lib/mdxData'
-import { postPaths } from '@/lib/mdxPaths'
 import Layout from '@/components/layout'
 import { Section } from '@/components/section'
 import Button from '@/components/button'
-import hydrate from 'next-mdx-remote/hydrate'
-import renderToString from 'next-mdx-remote/render-to-string'
-import rehypePrism from '@mapbox/rehype-prism'
-import autolink from 'rehype-autolink-headings'
-import slug from 'rehype-slug'
-import { faLink } from '@fortawesome/free-solid-svg-icons'
+import { getPost } from '@/lib/mdxData'
+import { postPaths } from '@/lib/mdxPaths'
+import { formatDate } from '@/lib/date'
 
 const BlogPost = ({ source, frontMatter }) => {
   const content = hydrate(source)
@@ -30,15 +38,33 @@ const BlogPost = ({ source, frontMatter }) => {
             </ul>
             <h1>{frontMatter.title}</h1>
             <h5 className="article-excerpt">{frontMatter.excerpt}</h5>
+
+            {frontMatter.coverImg && (
+              <div className="article-cover">
+                <picture>
+                  <source
+                    srcSet={frontMatter.coverImg?.avif}
+                    type="image/avif"
+                  />
+                  <img
+                    src={frontMatter.coverImg?.jpg}
+                    alt="Thumbnail for Post"
+                  />
+                </picture>
+              </div>
+            )}
           </div>
           <article className="article-content">{content}</article>
+          <span className="article-date">
+            Post published: {formatDate(frontMatter.publishedAt)}
+          </span>
         </Section>
       </Layout>
 
       <style jsx>
         {`
           .article-front {
-            margin-bottom: 6rem;
+            margin-bottom: 10rem;
           }
 
           .article-categories {
@@ -48,14 +74,45 @@ const BlogPost = ({ source, frontMatter }) => {
             margin-bottom: 2rem;
           }
 
+          .article-categories :global(button) {
+            cursor: initial;
+          }
+
           h5 {
             color: var(--color-gray-2);
             margin-top: 1rem;
           }
 
+          .article-date {
+            color: var(--color-gray-2);
+            margin-top: 4rem;
+          }
+
+          .article-cover {
+            margin-top: 4rem;
+            padding: 1.5rem;
+            border: 0.2rem solid var(--color-white-2);
+            border-radius: var(--cardRadius);
+          }
+
+          picture {
+            display: block;
+            box-shadow: var(--cardBoxShadow);
+          }
+
+          picture,
+          source,
+          img {
+            width: 100%;
+            height: 40rem;
+            object-fit: cover;
+            border-radius: var(--cardRadius);
+          }
+
           .article-content {
+            position: relative;
             display: flex;
-            width: 70ch;
+            width: 80ch;
             flex-direction: column;
             gap: 2rem 0;
           }
@@ -69,8 +126,32 @@ const BlogPost = ({ source, frontMatter }) => {
             line-height: var(--lineHeight-body);
             color: var(--color-primary);
           }
+
+          .article-content :global(nav > ol) {
+            list-style-position: inside;
+            color: var(--color-primary);
+          }
+
+          .article-content :global(::marker) {
+            color: var(--color-text);
+          }
+
+          .article-content :global(a) {
+            color: var(--color-primary);
+            font-weight: 700;
+          }
+
+          .article-content :global(a:hover) {
+            text-decoration: underline;
+          }
+
+          .article-content :global(strong, em) {
+            font-weight: 700;
+          }
         `}
       </style>
+
+      <style jsx>{prismStyle}</style>
     </>
   )
 }
@@ -78,7 +159,7 @@ const BlogPost = ({ source, frontMatter }) => {
 BlogPost.propTypes = {
   source: PropTypes.oneOfType([PropTypes.array, PropTypes.object]).isRequired,
   frontMatter: PropTypes.oneOfType([PropTypes.array, PropTypes.object])
-    .isRequired
+    .isRequired,
 }
 
 export async function getStaticProps({ params }) {
@@ -86,15 +167,20 @@ export async function getStaticProps({ params }) {
 
   const mdxSource = await renderToString(content, {
     mdxOptions: {
-      rehypePlugins: [rehypePrism, slug, autolink]
-    }
+      rehypePlugins: [
+        rehypePrism,
+        slug,
+        [autolink, { behaviour: 'wrap' }],
+        // toc,
+      ],
+    },
   })
 
   return {
     props: {
       source: mdxSource,
-      frontMatter
-    }
+      frontMatter,
+    },
   }
 }
 
@@ -103,9 +189,9 @@ export async function getStaticPaths() {
     fallback: false,
     paths: postPaths.map((postPath) => ({
       params: {
-        slug: postPath.replace(/\.mdx/, '')
-      }
-    }))
+        slug: postPath.replace(/\.mdx/, ''),
+      },
+    })),
   }
 }
 

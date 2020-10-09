@@ -5,7 +5,8 @@
       "@/components/*": ["components/*"],
       "@/lib/*": ["lib/*"],
       "@/hooks/*": ["hooks/*"],
-      "@/context/*": ["context/*"]
+      "@/context/*": ["context/*"],
+      "@/styles/*": ["styles/*"]
     }
   }
 }

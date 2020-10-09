@@ -4,7 +4,7 @@ import { getPosts } from '@/lib/mdxData'
 import {
   faGripLines,
   faGripHorizontal,
-  faTimes
+  faTimes,
 } from '@fortawesome/free-solid-svg-icons'
 import { capitalizeString } from '@/lib/transformText'
 
@@ -63,6 +63,7 @@ const Blog = ({ postsData }) => {
   }
 
   const filterPostsWithCategory = (category) => {
+    // TODO: Add Filtering by Multiple Categories
     if (activeCategory !== category) {
       setActiveCategory(category)
       sortPosts(sorting, postsData)
@@ -164,13 +165,14 @@ export async function getStaticProps() {
 
   return {
     props: {
-      postsData
-    }
+      postsData,
+    },
   }
 }
 
 Blog.propTypes = {
-  postsData: PropTypes.oneOfType([PropTypes.array, PropTypes.object]).isRequired
+  postsData: PropTypes.oneOfType([PropTypes.array, PropTypes.object])
+    .isRequired,
 }
 
 export default Blog

@@ -8,6 +8,7 @@ const Container = ({ children, main = true, fullWidth = false }) => {
       <style jsx>
         {`
           .container {
+            display: block;
             height: inherit;
             padding: 0 2rem;
             position: relative;

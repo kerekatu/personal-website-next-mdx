@@ -26,8 +26,8 @@ const Layout = ({ children }) => {
             --color-black: #fff;
             --color-black-2: #f5f5f5;
             --color-black-3: #efefef;
-            --color-gray: #474d51;
-            --color-gray-2: #474d51;
+            --color-gray: #888;
+            --color-gray-2: #999;
 
             --color-header: rgba(15, 18, 20, 0);
             --color-header-2: rgba(15, 18, 20, 1);
@@ -53,8 +53,8 @@ const Layout = ({ children }) => {
             --color-black: #fff;
             --color-black-2: #f5f5f5;
             --color-black-3: #efefef;
-            --color-gray: #5c5c5c;
-            --color-gray-2: #5c5c5c;
+            --color-gray: #888;
+            --color-gray-2: #999;
 
             --color-header: rgba(23, 23, 23, 0);
             --color-header-2: rgba(23, 23, 23, 1);

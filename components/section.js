@@ -16,7 +16,7 @@ export const Section = ({
           section {
             display: ${gridDisplay};
             ${gridDisplay === 'grid' &&
-            `grid-template-columns: ${gridColumns || 0}`};
+            `grid-template-columns: ${gridColumns || '1fr'}`};
             gap: ${gridGap || 0};
             padding: ${initialPadding ? '8rem 0' : '0'};
             height: 100%;
@@ -29,7 +29,7 @@ export const Section = ({
 
 Section.propTypes = {
   gridDisplay: PropTypes.string,
-  gridColumns: PropTypes.string.isRequired,
+  gridColumns: PropTypes.string,
   gridGap: PropTypes.string,
   initialPadding: PropTypes.bool,
   children: PropTypes.node

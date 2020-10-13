@@ -1,6 +1,6 @@
-import css from 'styled-jsx/css'
+import { css } from '@emotion/core'
 
-const globalStyles = css.global`
+const globalStyles = css`
   ::selection {
     background-color: var(--color-primary);
     color: var(--color-white);
@@ -49,15 +49,15 @@ const globalStyles = css.global`
     --color-header-2: rgba(23, 23, 23, 1);
     --color-headerBorder: 0 0.1rem rgba(40, 40, 40, 0);
     --color-headerBorder-2: 0 0.1rem rgba(40, 40, 40, 1);
-    --color-background: #171717;
+    --color-background: #181818;
     --color-text: #fff;
-    --color-primary: #e74699;
-    --color-secondary: #ec6faf;
+    --color-primary: #008fff;
+    --color-secondary: #3aa9ff;
 
     --color-svg: invert(100%) sepia(100%) saturate(0%) hue-rotate(212deg)
       brightness(102%) contrast(102%);
-    --color-svg-2: invert(42%) sepia(73%) saturate(3205%) hue-rotate(304deg)
-      brightness(96%) contrast(88%);
+    --color-svg-2: invert(43%) sepia(71%) saturate(4430%) hue-rotate(189deg)
+      brightness(104%) contrast(104%);
   }
 
   :root[id='light'] {
@@ -79,7 +79,7 @@ const globalStyles = css.global`
     --color-background: #fff;
     --color-text: #000;
     --color-primary: #156dff;
-    --color-secondary: #5192f3;
+    --color-secondary: #3480ff;
 
     --color-svg: invert(0%) sepia(95%) saturate(5%) hue-rotate(351deg)
       brightness(97%) contrast(100%);
@@ -119,6 +119,7 @@ const globalStyles = css.global`
     --headingSize-4: 2.4rem;
     --headingSize-5: 1.8rem;
 
+    --lineHeight-post: 1.68;
     --lineHeight-body: 1.58;
     --lineHeight-heading: 1.2;
 
@@ -130,6 +131,9 @@ const globalStyles = css.global`
     --baseHeaderHeight: 8rem;
     --resizedHeaderHeight: 6.4rem;
     --baseMainWidth: 100rem;
+
+    /* OTHER */
+    --baseTransition: 0.15s ease;
   }
 
   *,

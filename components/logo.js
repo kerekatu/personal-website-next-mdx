@@ -1,29 +1,18 @@
-import PropTypes from 'prop-types'
+import styled from '@emotion/styled'
+import { CONSTANTS } from '@/utils/constants'
 
 const Logo = () => {
-  return (
-    <>
-      <img src="/static/logo-black.svg" alt="Logo" />
-
-      <style jsx>
-        {`
-          img {
-            display: block;
-            height: 3.6rem;
-            filter: var(--color-svg);
-          }
-
-          img:hover {
-            filter: var(--color-svg-2);
-          }
-        `}
-      </style>
-    </>
-  )
+  return <LogoWrapper src={CONSTANTS.logoLocation} alt="Logo" />
 }
 
-Logo.propTypes = {
-  altColor: PropTypes.bool
-}
+const LogoWrapper = styled.img`
+  display: block;
+  height: 3.6rem;
+  filter: var(--color-svg);
+
+  &:hover {
+    filter: var(--color-svg-2);
+  }
+`
 
 export default Logo

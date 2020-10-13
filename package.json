@@ -9,6 +9,8 @@
     "start": "next start"
   },
   "dependencies": {
+    "@emotion/core": "^10.0.35",
+    "@emotion/styled": "^10.0.27",
     "@fortawesome/fontawesome-svg-core": "^1.2.30",
     "@fortawesome/free-brands-svg-icons": "^5.14.0",
     "@fortawesome/free-solid-svg-icons": "^5.14.0",
@@ -27,6 +29,7 @@
     "path": "^0.12.7",
     "react": "16.13.1",
     "react-dom": "16.13.1",
+    "react-spring": "^8.0.27",
     "reading-time": "^1.2.0",
     "rehype-autolink-headings": "^4.0.0",
     "rehype-slug": "^3.0.0",

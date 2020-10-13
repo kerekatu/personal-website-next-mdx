@@ -1,6 +1,6 @@
-import css from 'styled-jsx/css'
+import { css } from '@emotion/core'
 
-export const prismStyle = css.global`
+export const prismStyle = css`
   pre[class*='language-'],
   code[class*='language-'] {
     color: var(--color-primary);

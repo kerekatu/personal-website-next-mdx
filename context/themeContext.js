@@ -17,7 +17,13 @@ export const ThemeProvider = ({ children }) => {
   }, [])
 
   const contextValue = useMemo(() => {
-    function handleTheme(newThemeValue) {
+    function handleTheme() {
+      // Checks current theme & returns new value
+      const newThemeValue =
+        themes.length - 1 > themes.indexOf(theme)
+          ? themes[themes.indexOf(theme) + 1]
+          : themes[0]
+
       // Toggles theme based on passed value
       localStorage.setItem('theme', newThemeValue)
 
@@ -30,7 +36,7 @@ export const ThemeProvider = ({ children }) => {
     return {
       theme,
       handleTheme,
-      themes
+      themes,
     }
   }, [theme, setTheme])
 
@@ -42,5 +48,5 @@ export const ThemeProvider = ({ children }) => {
 }
 
 ThemeProvider.propTypes = {
-  children: PropTypes.any
+  children: PropTypes.any,
 }

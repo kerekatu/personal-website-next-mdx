@@ -1,24 +1,5 @@
 import Document, { Html, Head, Main, NextScript } from 'next/document'
-
-function setColorsByTheme() {
-  const matchMediaQuery = window.matchMedia('(prefers-color-scheme: dark)')
-  const prefersDarkFromMediaQuery = matchMediaQuery.matches
-  const storedThemePreference = localStorage.getItem('theme')
-
-  const root = document.documentElement
-
-  let theme = 'light'
-
-  const hasStoredThemePreference = typeof storedThemePreference === 'string'
-
-  if (storedThemePreference && hasStoredThemePreference) {
-    theme = storedThemePreference
-  } else {
-    theme = prefersDarkFromMediaQuery ? 'dark' : 'light'
-  }
-
-  root.id = theme
-}
+import setColorsByTheme from '@/utils/setColorsByTheme'
 
 const ThemeScriptTag = () => {
   const invokeTheme = `(${String(setColorsByTheme)})()`

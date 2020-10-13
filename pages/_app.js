@@ -1,13 +1,25 @@
-import { ThemeProvider } from 'context/themeContext'
-import { DefaultSeo } from 'next-seo'
 import PropTypes from 'prop-types'
+import { DefaultSeo } from 'next-seo'
+import { ThemeProvider } from 'context/themeContext'
+
+// Includs icons globally
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { ICONS } from '@/utils/icons'
+
+// Default SEO when no other is provided
 import SEO from '../next-seo.config'
+
+import Layout from '@/components/layout'
+
+library.add(ICONS)
 
 const MyApp = ({ Component, pageProps }) => {
   return (
     <ThemeProvider>
       <DefaultSeo {...SEO} />
-      <Component {...pageProps} />
+      <Layout>
+        <Component {...pageProps} />
+      </Layout>
     </ThemeProvider>
   )
 }

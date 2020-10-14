@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types'
 import styled from '@emotion/styled'
+import { motion, AnimatePresence } from 'framer-motion'
 
 import { useContext } from 'react'
 import { ThemeContext } from '@/context/themeContext'
@@ -11,23 +12,38 @@ import Button from '@/components/button'
 const Navbar = ({ isAnimationCompleted }) => {
   const { theme, handleTheme, themes } = useContext(ThemeContext)
   const currentIndex = themes.indexOf(theme)
-  const changeIcon =
-    currentIndex === 0 ? 'moon' : currentIndex === 1 ? 'cloud-moon' : 'sun'
+  const currentIcon =
+    currentIndex === 0
+      ? CONSTANTS.themeIcons[1]
+      : currentIndex === 1
+      ? CONSTANTS.themeIcons[2]
+      : CONSTANTS.themeIcons[0]
 
   return (
-    <nav>
-      <List>
+    <NavbarWrapper>
+      <ul>
         <NavbarItems />
         <ListItem>
-          <Button
-            variant="transparent"
-            customPadding="0"
-            icon={changeIcon}
+          <ThemeButton
+            type="button"
             onClick={() => isAnimationCompleted && handleTheme()}
-          />
+          >
+            <AnimatePresence exitBeforeEnter>
+              {theme && currentIcon && (
+                <ThemeIcon
+                  src={currentIcon}
+                  variants={themeButtonVariants}
+                  initial="initial"
+                  animate="enter"
+                  exit="exit"
+                  key={currentIcon}
+                />
+              )}
+            </AnimatePresence>
+          </ThemeButton>
         </ListItem>
-      </List>
-    </nav>
+      </ul>
+    </NavbarWrapper>
   )
 }
 
@@ -57,11 +73,33 @@ export const NavbarItems = () => {
   )
 }
 
-const List = styled.ul`
-  display: flex;
-  align-items: center;
-  gap: 0 3rem;
-  list-style: none;
+const NavbarWrapper = styled.nav`
+  ul {
+    display: flex;
+    align-items: center;
+    gap: 0 3rem;
+    list-style: none;
+  }
+`
+
+const ThemeButton = styled.button`
+  display: block;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  opacity: 0.8;
+
+  &:hover {
+    opacity: 1;
+    transition: opacity var(--baseTransition);
+  }
+`
+
+const ThemeIcon = styled(motion.img)`
+  display: block;
+  height: 2rem;
+  width: 2rem;
+  filter: var(--color-svg);
 `
 
 const ListItem = styled.li`
@@ -75,6 +113,24 @@ const ListItem = styled.li`
     color: var(--color-black);
   }
 `
+
+const themeButtonVariants = {
+  initial: {
+    opacity: 0,
+    y: 10,
+  },
+
+  enter: {
+    opacity: 1,
+    y: 0,
+    transition: { type: 'spring', stiffness: 120, mass: 0.2 },
+  },
+  exit: {
+    opacity: 0,
+    y: -10,
+    transition: { type: 'spring', stiffness: 120, mass: 0.2 },
+  },
+}
 
 Navbar.propTypes = {
   isAnimationCompleted: PropTypes.bool.isRequired,

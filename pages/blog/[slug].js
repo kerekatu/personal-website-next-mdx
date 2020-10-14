@@ -1,6 +1,5 @@
 import PropTypes from 'prop-types'
 import { prismStyle } from '@/styles/prismStyles'
-
 import renderToString from 'next-mdx-remote/render-to-string'
 import { Global } from '@emotion/core'
 
@@ -14,7 +13,7 @@ import slug from 'rehype-slug'
 // import toc from 'rehype-toc'
 
 import Meta from '@/components/meta'
-import { Section } from '@/components/section'
+import { Section } from '@/layouts/section'
 import BlogArticle from '@/components/blog-article'
 
 import { getPost } from '@/lib/mdxData'

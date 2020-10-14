@@ -53,7 +53,7 @@ const FormInputWrapper = styled.div`
     margin-top: 3rem;
   }
 
-  & label {
+  label {
     color: currentColor;
     font-weight: 500;
     font-size: var(--headingSize-5);
@@ -61,8 +61,8 @@ const FormInputWrapper = styled.div`
     cursor: pointer;
   }
 
-  & input,
-  & textarea {
+  input,
+  textarea {
     border-radius: var(--buttonRadius);
     font-size: var(--baseFontSize);
     border: 0.2rem solid transparent;
@@ -71,22 +71,22 @@ const FormInputWrapper = styled.div`
     transition: border var(--baseTransition);
   }
 
-  & input:focus {
+  input:focus {
     border: 0.2rem solid var(--color-blue);
   }
 
-  & input:invalid:required {
+  input:invalid:required {
     outline: none;
     box-shadow: none;
   }
 
-  & input:focus:invalid:required {
+  input:focus:invalid:required {
     border: 0.2rem solid var(--color-red);
     outline: none;
     box-shadow: none;
   }
 
-  & textarea {
+  textarea {
     resize: vertical;
   }
 `

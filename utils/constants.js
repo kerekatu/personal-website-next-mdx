@@ -11,6 +11,11 @@ export const CONSTANTS = {
       type: 'button',
     },
   ],
+  themeIcons: [
+    '/static/icons/sun.svg',
+    '/static/icons/moon.svg',
+    '/static/icons/eye-off.svg',
+  ],
   footerSocialItems: [
     {
       title: 'Github',

@@ -65,7 +65,7 @@ const ButtonWrapper = styled.button`
   &.secondary {
     border: 0.2rem solid var(--color-primary);
     border-radius: var(--buttonRadius);
-    font-weight: 700;
+    font-weight: 500;
     color: var(--color-primary);
     transition: var(--baseTransition);
     transition-property: border, color, background-color;

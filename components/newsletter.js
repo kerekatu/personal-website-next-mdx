@@ -66,20 +66,20 @@ const NewsletterWrapper = styled.div`
       textAlign: 'center',
     }}
 
-  & strong {
+  strong {
     color: var(--color-primary);
   }
 
-  & .title {
+  .title {
     width: 28rem;
     color: currentColor;
   }
 
-  & .title > h2 {
+  .title > h2 {
     margin-bottom: 2.5rem;
   }
 
-  & .background-icon {
+  .background-icon {
     position: absolute;
     top: 1rem;
     width: 10rem;

@@ -5,7 +5,7 @@ import { capitalizeString } from '@/utils/transformText'
 
 import { BlogCard } from '@/components/card'
 import Button from '@/components/button'
-import { Section, SectionRow } from '@/components/section'
+import { Section, SectionRow } from '@/layouts/section'
 import Select from '@/components/select'
 import Newsletter from '@/components/newsletter'
 

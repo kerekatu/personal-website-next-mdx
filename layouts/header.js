@@ -5,7 +5,7 @@ import { ThemeContext } from '@/context/themeContext'
 import useResizeHeaderOnScroll from '@/hooks/useResizeHeaderOnScroll'
 
 import Navbar from '@/components/navbar'
-import Container from '@/components/container'
+import Container from '@/layouts/container'
 import Logo from '@/components/logo'
 import CustomLink from '@/components/custom-link'
 
@@ -49,13 +49,17 @@ const Header = () => {
 const animationVariants = {
   initial: {
     height: 'var(--baseHeaderHeight)',
-    boxShadow: 'var(--color-headerBorder)',
+    boxShadow: 'none',
+    opacity: 1,
     backgroundColor: 'var(--color-header)',
+    transition: { type: 'spring', mass: 0.4 },
   },
   resized: {
     height: 'var(--resizedHeaderHeight)',
     boxShadow: 'var(--color-headerBorder-2)',
     backgroundColor: 'var(--color-header-2)',
+    transition: { type: 'spring', mass: 0.4 },
+    opacity: 1,
   },
 }
 
@@ -64,6 +68,7 @@ const HeaderWrapper = styled(motion.div)`
   width: 100%;
   height: var(--baseHeaderHeight);
   top: 0;
+  opacity: 1;
   z-index: var(--headerZ);
   background-color: transparent;
 `

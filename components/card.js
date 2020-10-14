@@ -92,7 +92,7 @@ const BlogCardWrapper = styled.div`
     background-color: var(--color-white-2);
   }
 
-  & h5 {
+  h5 {
     color: var(--color-black-3);
     font-weight: 400;
     max-height: 5.8rem;
@@ -101,26 +101,26 @@ const BlogCardWrapper = styled.div`
     position: relative;
   }
 
-  & picture {
+  picture {
     display: block;
   }
 
-  & picture,
-  & source,
-  & img {
+  picture,
+  source,
+  img {
     width: 100%;
     height: 18rem;
     object-fit: cover;
     border-radius: var(--cardRadius);
   }
 
-  &.date {
+  .date {
     display: block;
     margin-top: 1.4rem;
     color: var(--color-gray);
   }
 
-  & ul {
+  ul {
     list-style: none;
     display: flex;
     gap: 1rem;
@@ -131,11 +131,11 @@ const BlogCardWrapper = styled.div`
     white-space: nowrap;
   }
 
-  & ul:hover {
+  ul:hover {
     scrollbar-width: thin;
   }
 
-  & .category {
+  .category {
     padding: 0.4rem 1.5rem;
     background-color: var(--color-white-4);
     border-radius: var(--buttonRadius-max);

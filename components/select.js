@@ -45,7 +45,7 @@ const Select = ({ options, selectedOption, handleSelect }) => {
 const SelectWrapper = styled.div`
   position: relative;
 
-  & .select {
+  .select {
     display: flex;
     align-items: center;
     gap: 1rem;
@@ -66,13 +66,13 @@ const SelectDropdown = styled.div`
   border-radius: var(--buttonRadius);
   background-color: var(--color-white-3);
 
-  & ul {
+  ul {
     list-style: none;
     padding: 1rem 0;
     text-align: center;
   }
 
-  & li {
+  li {
     cursor: pointer;
     font-size: var(--headingSize-5);
     color: var(--color-black-3);
@@ -81,7 +81,7 @@ const SelectDropdown = styled.div`
     transition: background-color var(--baseTransition);
   }
 
-  & li:hover {
+  li:hover {
     background-color: var(--color-white-4);
   }
 `

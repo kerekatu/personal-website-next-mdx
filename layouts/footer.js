@@ -3,8 +3,8 @@ import styled from '@emotion/styled'
 
 import { getCurrentYear } from '@/lib/date'
 
-import { Section } from '@/components/section'
-import Container from '@/components/container'
+import { Section } from '@/layouts/section'
+import Container from '@/layouts/container'
 import { CONSTANTS } from 'utils/constants'
 
 const Footer = () => {

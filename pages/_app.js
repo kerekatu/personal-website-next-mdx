@@ -9,7 +9,7 @@ import { ICONS } from '@/utils/icons'
 // Default SEO when no other is provided
 import SEO from '../next-seo.config'
 
-import Layout from '@/components/layout'
+import Layout from '@/layouts/layout'
 
 library.add(ICONS)
 

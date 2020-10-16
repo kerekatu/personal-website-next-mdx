@@ -6,25 +6,26 @@ import { Global } from '@emotion/core'
 // TODO: Find a way to include only needed languages to decrease the bundle size (maybe refractor?)
 import rehypePrism from '@mapbox/rehype-prism'
 
-import autolink from 'rehype-autolink-headings'
-import slug from 'rehype-slug'
-
 // TODO: Develop a better solution for TOC
 // import toc from 'rehype-toc'
+// import autolink from 'rehype-autolink-headings'
+// import slug from 'rehype-slug'
 
 import Meta from '@/components/meta'
 import { Section } from '@/layouts/section'
-import BlogArticle from '@/components/blog-article'
+import BlogArticle from '@/layouts/blog-article'
 
 import { getPost } from '@/lib/mdxData'
 import { postPaths } from '@/lib/mdxPaths'
+import Newsletter from '@/components/newsletter'
 
 const BlogPost = ({ source, frontMatter }) => {
   return (
     <>
       <Meta pageSubtitle={frontMatter.title} />
-      <Section>
+      <Section initialPadding={false}>
         <BlogArticle source={source} frontMatter={frontMatter} />
+        <Newsletter />
       </Section>
       <Global styles={prismStyle} />
     </>
@@ -38,8 +39,8 @@ export async function getStaticProps({ params }) {
     mdxOptions: {
       rehypePlugins: [
         rehypePrism,
-        slug,
-        [autolink, { behaviour: 'wrap' }],
+        // slug,
+        // [autolink, { behaviour: 'wrap' }],
         // toc,
       ],
     },

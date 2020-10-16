@@ -194,6 +194,7 @@ const globalStyles = css`
 
   h4 {
     font-size: var(--headingSize-4);
+    line-height: var(--lineHeight-heading);
   }
 
   h5 {

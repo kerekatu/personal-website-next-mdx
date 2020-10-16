@@ -31,13 +31,13 @@ export const BlogCard = ({
           </picture>
         )}
 
-        <div>
-          <h4>{title}</h4>
-          <h5>{excerpt}</h5>
+        <div className="content">
           <span className="date">{formatDate(publishedAt)}</span>
 
+          <h4>{title}</h4>
+          <p className="excerpt">{excerpt}</p>
           {categories && (
-            <ul>
+            <ul className="categories">
               {categories.map((category) => (
                 <li key={category}>
                   <span className="category">{capitalizeString(category)}</span>
@@ -92,46 +92,71 @@ const BlogCardWrapper = styled.div`
     background-color: var(--color-white-2);
   }
 
-  h5 {
-    color: var(--color-black-3);
-    font-weight: 400;
-    max-height: 5.8rem;
+  &:hover > picture {
+    opacity: 1;
+  }
+
+  h4,
+  .excerpt {
     overflow: hidden;
     text-overflow: ellipsis;
     position: relative;
   }
 
+  h4 {
+    margin-bottom: 1rem;
+    max-height: 8.7rem;
+    font-weight: 700;
+  }
+
+  .excerpt {
+    color: var(--color-gray-2);
+    max-height: 5rem;
+    margin-bottom: 2rem;
+    font-weight: 500;
+  }
+
   picture {
     display: block;
+    opacity: 0.8;
+    transition: opacity var(--baseTransition);
   }
 
   picture,
   source,
   img {
     width: 100%;
-    height: 18rem;
+    height: 16rem;
     object-fit: cover;
     border-radius: var(--cardRadius);
   }
 
-  .date {
-    display: block;
-    margin-top: 1.4rem;
-    color: var(--color-gray);
+  .content {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
   }
 
-  ul {
+  .date {
+    display: block;
+    margin-bottom: 1rem;
+    color: var(--color-text);
+    font-size: 1.4rem;
+    font-weight: 500;
+  }
+
+  .categories {
     list-style: none;
     display: flex;
     gap: 1rem;
-    margin-top: 1rem;
+    margin-top: auto;
     overflow-x: auto;
     padding: 0.2rem 0;
     scrollbar-width: none;
     white-space: nowrap;
   }
 
-  ul:hover {
+  .categories:hover {
     scrollbar-width: thin;
   }
 

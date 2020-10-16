@@ -1,11 +1,10 @@
+import { Fragment } from 'react'
 import hydrate from 'next-mdx-remote/hydrate'
 import PropTypes from 'prop-types'
 import styled from '@emotion/styled'
 import { Global, css } from '@emotion/core'
 
-import Button from '@/components/button'
 import { formatDate } from '@/lib/date'
-import Newsletter from './newsletter'
 
 const BlogArticle = ({ source, frontMatter }) => {
   const content = hydrate(source)
@@ -14,32 +13,24 @@ const BlogArticle = ({ source, frontMatter }) => {
     <>
       <BlogArticleWrapper>
         <div className="article-front">
-          <ul className="article-categories">
-            {frontMatter.categories.map((category) => (
-              <li key={category}>
-                <Button variant="quaternary active" label={category} />
-              </li>
-            ))}
-          </ul>
-          <h1>{frontMatter.title}</h1>
-          <h5 className="article-excerpt">{frontMatter.excerpt}</h5>
+          <span className="article-details">
+            {formatDate(frontMatter.publishedAt, 'MMMM dd, yyyy')} &bull;{' '}
+            {frontMatter.categories.join(', ')}
+          </span>
+          <h2>{frontMatter.title}</h2>
+          <h5>{frontMatter.excerpt}</h5>
 
-          {/* {frontMatter.coverImg && (
+          {frontMatter.coverImg && (
             <div className="article-cover">
               <picture>
                 <source srcSet={frontMatter.coverImg?.avif} type="image/avif" />
                 <img src={frontMatter.coverImg?.jpg} alt="Thumbnail for Post" />
               </picture>
             </div>
-          )} */}
+          )}
         </div>
         <article className="article-content">{content}</article>
-        <div className="article-back">
-          <span className="article-date">
-            Post published: {formatDate(frontMatter.publishedAt)}
-          </span>
-          <Newsletter />
-        </div>
+        <div className="article-back">{/* SHARE */}</div>
       </BlogArticleWrapper>
 
       <Global
@@ -79,8 +70,12 @@ const BlogArticle = ({ source, frontMatter }) => {
             border-radius: var(--buttonRadius);
           }
 
-          .article-categories > button {
-            cursor: initial !important;
+          .article-content h1,
+          .article-content h2,
+          .article-content h3,
+          .article-content h4,
+          .article-content h5 {
+            margin-top: 4rem;
           }
         `}
       />
@@ -89,30 +84,25 @@ const BlogArticle = ({ source, frontMatter }) => {
 }
 
 const BlogArticleWrapper = styled.div`
+  padding: 6rem 0 20rem 0;
+  margin: 0 auto;
+  width: 70ch;
+
   .article-front {
-    margin-bottom: 10rem;
+    margin-bottom: 6rem;
   }
 
-  .article-categories {
-    display: flex;
-    gap: 1rem;
-    list-style: none;
-    margin-bottom: 2rem;
-  }
-
-  .article-categories {
-    cursor: initial;
-  }
-
-  h5 {
+  .article-front > h5 {
+    margin-top: 2rem;
     color: var(--color-gray-2);
-    margin-top: 1rem;
   }
 
-  .article-date {
+  .article-details {
     display: block;
-    color: var(--color-gray-2);
-    margin-top: 4rem;
+    margin-bottom: 2rem;
+    color: var(--color-primary);
+    font-weight: 700;
+    text-align: center;
   }
 
   .article-cover {
@@ -131,7 +121,7 @@ const BlogArticleWrapper = styled.div`
   source,
   img {
     width: 100%;
-    height: 40rem;
+    height: 30rem;
     object-fit: cover;
     border-radius: var(--cardRadius);
   }
@@ -139,7 +129,6 @@ const BlogArticleWrapper = styled.div`
   .article-content {
     position: relative;
     display: flex;
-    width: 80ch;
     flex-direction: column;
     gap: 2rem 0;
   }

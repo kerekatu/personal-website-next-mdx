@@ -49,7 +49,7 @@ const Header = () => {
 const animationVariants = {
   initial: {
     height: 'var(--baseHeaderHeight)',
-    boxShadow: 'none',
+    boxShadow: 'var(--color-headerBorder)',
     opacity: 1,
     backgroundColor: 'var(--color-header)',
     transition: { type: 'spring', mass: 0.4 },
@@ -64,7 +64,7 @@ const animationVariants = {
 }
 
 const HeaderWrapper = styled(motion.div)`
-  position: fixed;
+  position: sticky;
   width: 100%;
   height: var(--baseHeaderHeight);
   top: 0;
